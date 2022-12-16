@@ -1,0 +1,21 @@
+@import '../../commons/variables.scss';
+
+.info {
+  &__title {
+    color: $color-font--white;
+    font-size: 30px;
+    text-align: $align-items--center;
+    font-weight: $font-weight--bold;
+    padding-bottom: 50px;
+  }
+
+  &__subtitle {
+    color: $color-font--white;
+    font-size: 20px;
+    text-align: $text-align--center;
+
+    &.version {
+      font-size: $button-font-size;
+    }
+  }
+}

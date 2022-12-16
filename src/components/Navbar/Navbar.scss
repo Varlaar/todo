@@ -1,0 +1,12 @@
+@import '../../commons/variables.scss';
+
+.navbar {
+
+  &__link:hover {
+    color: $background-color--hover;
+  }
+
+  &__link:not(:last-child) {
+    margin-right: 30px;
+  }
+}

@@ -1,0 +1,23 @@
+// variables
+$display: flex;
+$flex-flow--row: row nowrap;
+$align-items--center: center;
+$flex-flow--column: column nowrap;
+$justify-content--center: center;
+$justify-content--between: space-between;
+$background-color: #b8860b;
+$background-color--hover: #dda20d;
+$border-radius: 5px;
+$button-font-size: 16px;
+$color-font--white: #fff;
+$font-weight--bold: 700;
+$text-align--center: center;
+$transition: 0.2s linear;
+$cursor: pointer;
+
+// breakpoints
+$breakpoint-xxl: 1365px;
+$breakpoint-xl: 1023px;
+$breakpoint-md: 839px;
+$breakpoint-sm: 480px;
+$breakpoint-ssm: 429px;

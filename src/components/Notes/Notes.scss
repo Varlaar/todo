@@ -1,0 +1,143 @@
+@import '../../commons/variables.scss';
+
+.notelist {
+  display: $display;
+  flex-flow: $flex-flow--column;
+  align-items: $align-items--center;
+  padding-top: 50px;
+
+  .note {
+    display: $display;
+    align-items: $align-items--center;
+    justify-content: $justify-content--between;
+    color: $color-font--white;
+    font-size: $color-font--white;
+    height: 50px;
+    width: 800px;
+    max-width: 100%;
+    min-width: 300px;
+    border-radius: $border-radius;
+    padding: 0 15px;
+
+    &:hover {
+      background-color: $background-color;
+      transition: 0.3s linear;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+
+    .left-column {
+      display: $display;
+      flex-flow: $flex-flow--row;
+      align-content: center;
+      justify-content: flex-start;
+
+      &__checkbox:checked+div>.left-column__title {
+        text-decoration: line-through;
+      }
+
+      &__flex {
+        display: $display;
+        flex-flow: $flex-flow--row;
+        justify-content: flex-start;
+      }
+
+      &__title {
+        padding-left: 20px;
+        padding-right: 10px;
+        margin-top: -3px;
+        word-wrap: break-word;
+      }
+
+      &__description,  &__attached-file {
+        margin-top: 1px;
+        margin-bottom: 4px;
+        width: 15px;
+        height: 17px;
+
+        &:first-child {
+          margin-left: 20px;
+          margin-right: 10px;
+        }
+      }
+
+      &__edit {
+        outline: none;
+        background: none;
+        margin-left: 10px;
+        width: 600px;
+      }
+
+      &__save-button,
+      &__cancel-button {
+        font-size: 26px;
+        height: 40px;
+        width: 40px;
+        background-color: #fff;
+        border-radius: 5px;
+        color: #000;
+
+        &:not(:last-child) {
+          margin-right: 10px;
+        }
+
+        &:hover {
+          background-color: #b22222;
+          transition: 0.3s linear;
+          cursor: pointer;
+          border: none;
+          color: #fff;
+        }
+      }
+
+      &__save-button:hover {
+        background-color: #099131;
+      }
+    }
+
+    .right-column {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      justify-content: flex-end;
+
+      &__date-title {
+        font-size: 14px;
+        color: #fff;
+        margin-right: 20px;
+      }
+
+      &__delete-button,
+      &__view-button {
+        font-size: 26px;
+        height: 40px;
+        width: 40px;
+        background-color: #fff;
+        border-radius: 5px;
+        color: #000;
+
+        &:not(:last-child) {
+          margin-right: 10px;
+          font-size: 18px;
+        }
+
+        &:hover {
+          background-color: #b22222;
+          transition: 0.3s linear;
+          cursor: pointer;
+          border: none;
+          color: #fff;
+        }
+      }
+
+      &__view-button:hover {
+        background-color: #0b15a5;
+      }
+    }
+  }
+}
+
+
+

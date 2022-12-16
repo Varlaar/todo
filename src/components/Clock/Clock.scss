@@ -1,0 +1,14 @@
+@import '../../commons/variables.scss';
+
+.clock {
+  display: $display;
+  flex-flow: $flex-flow--row;
+
+  &_font {
+    font-weight: $font-weight--bold;
+  }
+
+  &__time {
+    margin-left: 20px;
+  }
+}

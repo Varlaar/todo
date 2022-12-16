@@ -1,0 +1,24 @@
+@import '../../commons/variables.scss';
+
+.header {
+  display: $display;
+  justify-content: $justify-content--between;
+  padding: 10px 0;
+  color: $color-font--white;
+
+  &__section {
+    display: $display;
+    align-items: $align-items--center;
+  }
+
+  &__item {
+    padding: 10px 0;
+    font-size: 18px;
+
+    &.headerlogo {
+      font-size: 20px;
+      font-weight: 800;
+      margin-right: 60px;
+    }
+  }
+}

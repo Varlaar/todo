@@ -1,0 +1,133 @@
+@import '../../commons/variables.scss';
+
+.alert {
+  color: yellow;
+}
+
+.todo {
+  display: $display;
+  flex-flow: $flex-flow--column;
+  align-items: $align-items--center;
+  justify-content: $justify-content--center;
+  max-width: 100%;
+  min-width: 300px;
+
+  &__title {
+    height: 50px;
+    width: 800px;
+    max-width: 100%;
+    min-width: 300px;
+    padding: 0 15px;
+    font-size: $button-font-size;
+    border-radius: $border-radius;
+
+    &:focus {
+      outline: 2px solid $background-color;
+    }
+  }
+
+  &__description {
+    height: 50px;
+    width: 800px;
+    max-width: 100%;
+    min-width: 300px;
+    padding: 0 15px;
+    font-size: $button-font-size;
+    border-radius: $border-radius;
+    margin-top: 20px;
+
+    &:focus {
+      outline: 2px solid $background-color;
+    }
+  }
+
+  &__pick-file {
+    width: 800px;
+    max-width: 100%;
+    min-width: 300px;
+    height: 50px;
+    border-radius: $border-radius;
+    background-color: $background-color;
+    font-size: $button-font-size;
+    font-weight: $font-weight--bold;
+    color: $color-font--white;
+    cursor: $cursor;
+    border: none;
+    margin: 20px 0 0px 0;
+
+    &:hover {
+      transition: $transition;
+      background-color: $background-color--hover;
+    }
+  }
+
+  &__delete-file {
+    width: 800px;
+    max-width: 100%;
+    min-width: 300px;
+    height: 50px;
+    border-radius: $border-radius;
+    background-color: $background-color;
+    font-size: $button-font-size;
+    font-weight: $font-weight--bold;
+    color: $color-font--white;
+    cursor: $cursor;
+    border: none;
+    margin: 20px 0 20px 0;
+
+    &:hover {
+      transition: $transition;
+      background-color: $background-color--hover;
+    }
+  }
+
+  &__pick-date,
+  &__hide-date {
+    width: 800px;
+    max-width: 100%;
+    min-width: 300px;
+    height: 50px;
+    border-radius: $border-radius;
+    background-color: $background-color;
+    font-size: $button-font-size;
+    font-weight: $font-weight--bold;
+    color: $color-font--white;
+    cursor: $cursor;
+    border: none;
+    margin: 20px 0 20px 0;
+
+    &:hover {
+      transition: $transition;
+      background-color: $background-color--hover;
+    }
+  }
+
+  &__calendar {
+    padding-bottom: 20px;
+  }
+
+  &__add-note,
+  &__cancel {
+    width: 800px;
+    max-width: 100%;
+    min-width: 300px;
+    height: 50px;
+    border-radius: $border-radius;
+    background-color: $background-color;
+    font-size: $button-font-size;
+    font-weight: $font-weight--bold;
+    color: $color-font--white;
+    cursor: $cursor;
+    border: none;
+
+    &:hover {
+      transition: $transition;
+      background-color: $background-color;
+    }
+  }
+
+  &__cancel {
+    margin-bottom: 50px;
+    margin-top: 20px;
+  }
+}

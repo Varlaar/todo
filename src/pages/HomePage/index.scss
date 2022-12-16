@@ -1,0 +1,29 @@
+@import '../../commons/variables.scss';
+
+.home {
+    display: $display;
+    flex-flow: $flex-flow--column;
+    align-items: $align-items--center;
+    justify-content: $justify-content--between;
+}
+
+.create-task {
+    display: $display;
+    flex-flow: $flex-flow--column;
+    align-items: $align-items--center;
+
+    &__button {
+        width: 300px;
+        height: 50px;
+        font-size: $button-font-size;
+        font-weight: $font-weight--bold;
+        color: $color-font--white;
+        background-color: $background-color;
+        border-radius: $border-radius;
+
+        &:hover {
+            transition: 0.2s linear;
+            background-color: $background-color--hover;
+        }
+    }
+}
