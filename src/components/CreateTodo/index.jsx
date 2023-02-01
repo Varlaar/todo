@@ -14,13 +14,7 @@ const CreateTodo = ({ handleAddTodo, handleClose }) => {
   const filePicker = useRef(null);
   const alert = useAlert();
 
-  useEffect(() => {
-    return () => {
-      setTitle("");
-      setDescription("");
-    };
-  }, []);
-
+  // Сохранить задачу
   const saveTodo = () => {
     if (title.trim().length === 0) {
       alert.show(
@@ -33,19 +27,37 @@ const CreateTodo = ({ handleAddTodo, handleClose }) => {
         description,
         completed: false,
         selectedFileUrl: file,
-        date
+        date,
       });
     }
   };
 
-  const onChangeDate = (date) => {
+  // Выбор даты выполнения задачи
+  const handleChangeShowCalendar = () => {
+    setVisibleCalendar(!visibleCalendar);
+  };
+
+  // Изменение даты выполнения задачи
+  const handleChangeDate = (date) => {
     setDate(date);
   };
 
+  // Изменение прикрепленного файла
   const handleChangeFile = (file) => {
     setFile(file);
   };
 
+  // Добавление нового файла
+  const handlePick = () => {
+    filePicker.current.click();
+  };
+
+  // Удаление прикрепленного файла
+  const handleDeleteFile = () => {
+    setFile(null);
+  };
+
+  // Изменение названия задачи
   const handleChangeTitle = ({ target: { value } }) => {
     const splitValue = value.split("");
     const title = value[0]
@@ -54,21 +66,17 @@ const CreateTodo = ({ handleAddTodo, handleClose }) => {
     setTitle(title);
   };
 
+  // Изменение описания задачи
   const handleChangeDescription = ({ target: { value } }) => {
     setDescription(value);
   };
 
-  const handleDeleteFile = () => {
-    setFile(null);
-  };
-
-  const handleChangeShowCalendar = () => {
-    setVisibleCalendar(!visibleCalendar);
-  };
-
-  const handlePick = () => {
-    filePicker.current.click();
-  };
+  useEffect(() => {
+    return () => {
+      setTitle("");
+      setDescription("");
+    };
+  }, []);
 
   return (
     <>
@@ -126,7 +134,7 @@ const CreateTodo = ({ handleAddTodo, handleClose }) => {
             <div className="todo__calendar">
               <Calendar
                 minDate={new Date()}
-                onChange={onChangeDate}
+                onChange={handleChangeDate}
                 value={date}
               />
             </div>

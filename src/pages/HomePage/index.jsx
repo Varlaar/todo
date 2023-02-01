@@ -16,55 +16,74 @@ const HomePage = () => {
   const [selectedTodo, setSelectedTodo] = useState(null);
   const [mode, setMode] = useState(MODE_TODO_VIEW);
 
+  // Изменение текущего режима: просмотр, редактирование или добавление задачи
   const handleModeChange = (newMode) => setMode(newMode);
 
+  // Переход в режим редактирования выбранной задачи
   const handleTodoClick = (todo) => {
     setSelectedTodo(todo);
     handleModeChange(MODE_TODO_EDIT);
   };
 
+  // Создание новой задачи
   const handleAddTodo = (todo) => {
     addDoc(todo);
     setMode(MODE_TODO_VIEW);
   };
 
-  const handleTodoEdit = (todo) => {
-    console.log(todo);
+  const handleTodoEdit = async (todo) => {
+    // try {
+    //   await db.collection("todos").doc(todo).update({
+    //   });
+    //   console.log("Document successfully updated!");
+    // } catch (e) {
+    //   console.log("Error updating document: ", e);
+    // }
+    // setTodos((todos) =>
+    //   todos.map((item) => (item.id === todo.id ? todo : item))
+    // );
     setSelectedTodo(todo);
-    setTodos((todos) =>
-      todos.map((item) => (item.id === todo.id ? todo : item))
-    );
+    console.log("задача изменена", todo);
   };
 
-  const handleTodoComplete = (id) => {
-    let newTodo = [...todos].map((todo) =>
-      todo.id !== id ? todo : { ...todo, completed: !todo.completed }
-    );
-    setTodos(newTodo);
-  };
-
-  const handleTodoDelete = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
-
-  const getDoc = async () => {
+  // Задача выполнена
+  const handleTodoComplete = async (todo) => {
     try {
-      const response = db.collection("todos");
-      const querySnapshot = await response.get();
-      const todos = [];
-      querySnapshot.forEach((i) =>
-        todos.push({
-          ...i.data(),
-          documentId: i.id,
-        })
-      );
-      setTodos(todos);
-      console.log(todos);
-    } catch (error) {
-      console.log("Error getting documents: ", error);
+      await db.collection("todos").doc(todo.id).update({
+        completed: !todo.completed,
+      });
+      console.log("Document successfully updated!");
+    } catch (e) {
+      console.log("Error updating document: ", e);
     }
   };
 
+  // Удаление задачи
+  const handleTodoDelete = (id) => {
+    deleteDoc(id);
+  };
+
+  // Получение списка задач
+  const getDoc = async () => {
+    try {
+      const response = db.collection("todos");
+      const unsubscribe = response.onSnapshot((querySnapshot) => {
+        const todos = [];
+        querySnapshot.forEach((doc) =>
+          todos.push({
+            ...doc.data(),
+            id: doc.id,
+          })
+        );
+        setTodos(todos);
+      });
+      return () => unsubscribe();
+    } catch (e) {
+      console.log("Error getting documents: ", e);
+    }
+  };
+
+  // Добавление задачи
   const addDoc = async (todo) => {
     try {
       await db.collection("todos").add(todo);
@@ -72,6 +91,21 @@ const HomePage = () => {
       console.log("Document successfully written!");
     } catch (e) {
       console.error("Error adding document: ", e);
+    }
+  };
+
+  // Удаление задачи
+  const deleteDoc = async (id) => {
+    try {
+      await db
+        .collection("todos")
+        .doc(id)
+        .delete()
+        .then(() => {
+          console.log("Document successfully deleted!");
+        });
+    } catch (e) {
+      console.error("Error removing document: ", e);
     }
   };
 

@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { useAlert } from "react-alert";
 import AddFile from "../AddFile";
 import Calendar from "react-calendar";
+// import { db } from "../../firebase";
 
 import "./EditTodoNote.scss";
 
@@ -10,12 +11,14 @@ const EditTodoNote = ({ onChangePress, selectedTodo, hanldeCancelPress }) => {
   const [newDescription, setNewDescription] = useState(
     selectedTodo.description
   );
-  const [newDate, setNewDate] = useState(selectedTodo.date);
+  const [newDate, setNewDate] = useState(
+    new Date(selectedTodo.date.seconds * 1000)
+  );
   const [newFile, setNewFile] = useState(selectedTodo.selectedFileUrl);
   const filePicker = useRef(null);
   const alert = useAlert();
 
-  const handleTodoChange = () => {
+  const handleTodoChange = (selectedTodo) => {
     if (newTitle.trim().length === 0) {
       alert.show(
         <div style={{ color: "yellow" }}>
@@ -23,11 +26,18 @@ const EditTodoNote = ({ onChangePress, selectedTodo, hanldeCancelPress }) => {
         </div>
       );
     } else {
+      // db.collection("todos").doc(selectedTodo.id).update({
+      //   ...selectedTodo,
+      //   title: newTitle,
+      //   description: newDescription,
+      //   date: { seconds: Math.round(newDate.getTime() / 1000) },
+      //   selectedFileUrl: newFile,
+      // });
       const newTodo = {
         ...selectedTodo,
         title: newTitle,
         description: newDescription,
-        date: newDate,
+        date: { seconds: Math.round(newDate.getTime() / 1000) },
         selectedFileUrl: newFile,
       };
       onChangePress(newTodo);
@@ -46,7 +56,7 @@ const EditTodoNote = ({ onChangePress, selectedTodo, hanldeCancelPress }) => {
     setNewFile(null);
   };
 
-  const handleChangeNewTitle = ({target :{value}}) => {
+  const handleChangeNewTitle = ({ target: { value } }) => {
     const splitValue = value.split("");
     const newTitle = value[0]
       ? value[0].toUpperCase() + splitValue.slice(1).join("")
@@ -54,7 +64,7 @@ const EditTodoNote = ({ onChangePress, selectedTodo, hanldeCancelPress }) => {
     setNewTitle(newTitle);
   };
 
-  const handleChangeNewDescription = ( {target: { value } }) => {
+  const handleChangeNewDescription = ({ target: { value } }) => {
     setNewDescription(value);
   };
 
