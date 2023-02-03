@@ -1,37 +1,28 @@
 import React, { useState, useCallback } from "react";
 import EditTodoNote from "../EditTodoNote";
+import { getTodoTime } from "../../utils/getTodoTime";
 
 import "./TodoNote.scss";
 
 const TodoNote = ({ handleClose, selectedTodo, handleTodoEdit }) => {
   const [isEdit, setIsEdit] = useState(false);
 
+  // Сохранение изменений в выбранной туду и выход из режима редактирования (нажата кнопка сохранить)
   const onChangePress = (todo) => {
     setIsEdit(!isEdit);
     handleTodoEdit(todo);
   };
 
+  // Выход из режима редактирования (нажата кнопка отмена)
   const hanldeCancelPress = () => {
     setIsEdit(!isEdit);
   };
 
-  const addLeadingZero = (d) => {
-    return d < 10 ? "0" + d : d;
-  };
-
-  const getUserTime = (time = new Date()) => {
-    const YEAR = time.getFullYear();
-    const MONTH = addLeadingZero(time.getMonth() + 1);
-    const DAY = addLeadingZero(time.getDate());
-    const HOURS = addLeadingZero(time.getHours());
-    const MINUTES = addLeadingZero(time.getMinutes());
-    return `${YEAR}.${MONTH}.${DAY} ${HOURS}:${MINUTES}`;
-  };
-
+  // Дата выполнения задачи
   const getComplateText = useCallback(() => {
     const currentDate = new Date().getTime();
     const diffDays = getDiffDays(selectedTodo.date.seconds, currentDate);
-    const displayDate = getUserTime(new Date(selectedTodo.date.seconds * 1000));
+    const displayDate = getTodoTime(new Date(selectedTodo.date.seconds * 1000));
 
     if (diffDays === 0) {
       return (
@@ -58,6 +49,7 @@ const TodoNote = ({ handleClose, selectedTodo, handleTodoEdit }) => {
     return <div className="todo-note__date-complate">{displayDate}</div>;
   }, [selectedTodo?.date]);
 
+  // Вычисление разницы
   const getDiffDays = (date1, date2) => {
     const date = date1 * 1000;
     let days = (date2 - date) / 86400000; //86400000ms в одном дне

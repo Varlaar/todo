@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import { useAlert } from "react-alert";
 import AddFile from "../AddFile";
 import Calendar from "react-calendar";
-// import { db } from "../../firebase";
 
 import "./EditTodoNote.scss";
 
@@ -18,6 +17,7 @@ const EditTodoNote = ({ onChangePress, selectedTodo, hanldeCancelPress }) => {
   const filePicker = useRef(null);
   const alert = useAlert();
 
+  // Изменение полей текущей задачи
   const handleTodoChange = (selectedTodo) => {
     if (newTitle.trim().length === 0) {
       alert.show(
@@ -26,13 +26,6 @@ const EditTodoNote = ({ onChangePress, selectedTodo, hanldeCancelPress }) => {
         </div>
       );
     } else {
-      // db.collection("todos").doc(selectedTodo.id).update({
-      //   ...selectedTodo,
-      //   title: newTitle,
-      //   description: newDescription,
-      //   date: { seconds: Math.round(newDate.getTime() / 1000) },
-      //   selectedFileUrl: newFile,
-      // });
       const newTodo = {
         ...selectedTodo,
         title: newTitle,
@@ -44,32 +37,34 @@ const EditTodoNote = ({ onChangePress, selectedTodo, hanldeCancelPress }) => {
     }
   };
 
-  const onChangeNewDate = (newDate) => {
-    setNewDate(newDate);
-  };
-
-  const handleChangeFile = (newFile) => {
-    setNewFile(newFile);
-  };
-
-  const handleDeleteFile = () => {
-    setNewFile(null);
-  };
-
+  // Изменение названия текущей задачи
   const handleChangeNewTitle = ({ target: { value } }) => {
-    const splitValue = value.split("");
-    const newTitle = value[0]
-      ? value[0].toUpperCase() + splitValue.slice(1).join("")
-      : [];
-    setNewTitle(newTitle);
+    setNewTitle(value);
   };
 
+  // Изменение описания текущей задачи
   const handleChangeNewDescription = ({ target: { value } }) => {
     setNewDescription(value);
   };
 
+  // Изменение даты текущей задачи
+  const onChangeNewDate = (newDate) => {
+    setNewDate(newDate);
+  };
+
+  // Изменение файла текущей задачи (нажатие по кнопке изменить)
   const handlePick = () => {
     filePicker.current.click();
+  };
+
+  // Изменение файла текущей задачи (выбор нового файла с устройства)
+  const handleChangeFile = (newFile) => {
+    setNewFile(newFile);
+  };
+
+  // Удаление файла текущей задачи
+  const handleDeleteFile = () => {
+    setNewFile(null);
   };
 
   return (
@@ -138,7 +133,7 @@ const EditTodoNote = ({ onChangePress, selectedTodo, hanldeCancelPress }) => {
       )}
       <div>
         <button
-          onClick={() => handleTodoChange()}
+          onClick={() => handleTodoChange(selectedTodo)}
           className="edit-todo__save-button"
         >
           Сохранить

@@ -14,7 +14,7 @@ const CreateTodo = ({ handleAddTodo, handleClose }) => {
   const filePicker = useRef(null);
   const alert = useAlert();
 
-  // Сохранить задачу
+  // Сохранение задачи
   const saveTodo = () => {
     if (title.trim().length === 0) {
       alert.show(
@@ -59,11 +59,7 @@ const CreateTodo = ({ handleAddTodo, handleClose }) => {
 
   // Изменение названия задачи
   const handleChangeTitle = ({ target: { value } }) => {
-    const splitValue = value.split("");
-    const title = value[0]
-      ? value[0].toUpperCase() + splitValue.slice(1).join("")
-      : [];
-    setTitle(title);
+    setTitle(value);
   };
 
   // Изменение описания задачи

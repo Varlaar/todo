@@ -31,22 +31,22 @@ const HomePage = () => {
     setMode(MODE_TODO_VIEW);
   };
 
-  const handleTodoEdit = async (todo) => {
-    // try {
-    //   await db.collection("todos").doc(todo).update({
-    //   });
-    //   console.log("Document successfully updated!");
-    // } catch (e) {
-    //   console.log("Error updating document: ", e);
-    // }
-    // setTodos((todos) =>
-    //   todos.map((item) => (item.id === todo.id ? todo : item))
-    // );
+  // Изменение выбранной задачи
+  const handleTodoEdit = (todo) => {
+    updateDoc(todo);
+    setTodos((todos) =>
+      todos.map((item) => (item.id === todo.id ? todo : item))
+    );
     setSelectedTodo(todo);
     console.log("задача изменена", todo);
   };
 
-  // Задача выполнена
+  // Удаление задачи
+  const handleTodoDelete = (id) => {
+    deleteDoc(id);
+  };
+
+  // Задача выполнена (чекбокс)
   const handleTodoComplete = async (todo) => {
     try {
       await db.collection("todos").doc(todo.id).update({
@@ -58,12 +58,9 @@ const HomePage = () => {
     }
   };
 
-  // Удаление задачи
-  const handleTodoDelete = (id) => {
-    deleteDoc(id);
-  };
+  // ===== FIRESTORE =====
 
-  // Получение списка задач
+  // Получение списка задач из firestore
   const getDoc = async () => {
     try {
       const response = db.collection("todos");
@@ -83,7 +80,7 @@ const HomePage = () => {
     }
   };
 
-  // Добавление задачи
+  // Добавление задачи в firestore
   const addDoc = async (todo) => {
     try {
       await db.collection("todos").add(todo);
@@ -94,7 +91,22 @@ const HomePage = () => {
     }
   };
 
-  // Удаление задачи
+  // Изменение задачи в firestore
+  const updateDoc = async (todo) => {
+    try {
+      await db
+        .collection("todos")
+        .doc(todo.id)
+        .update({
+          ...todo,
+        });
+      console.log("Document successfully updated!");
+    } catch (e) {
+      console.log("Error updating document: ", e);
+    }
+  };
+
+  // Удаление задачи из firestore
   const deleteDoc = async (id) => {
     try {
       await db

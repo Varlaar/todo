@@ -1,4 +1,5 @@
 import React from "react";
+import { getTodoTime } from "../../utils/getTodoTime";
 import attachedFile from "../../assets/img/attachedFile.png";
 import description from "../../assets/img/description.png";
 
@@ -11,19 +12,6 @@ const Notes = ({
   handleTodoComplete,
 }) => {
 
-const addLeadingZero = (d) => {
-  return d < 10 ? "0" + d : d;
-};
-
-const getUserTime = (time = new Date()) => {
-  const YEAR = time.getFullYear();
-  const MONTH = addLeadingZero(time.getMonth() + 1);
-  const DAY = addLeadingZero(time.getDate());
-  const HOURS = addLeadingZero(time.getHours());
-  const MINUTES = addLeadingZero(time.getMinutes());
-  return `${YEAR}.${MONTH}.${DAY} ${HOURS}:${MINUTES}`; 
-};
-
   return (
     <ul className="notelist">
       {todos.map((todo) => (
@@ -32,7 +20,7 @@ const getUserTime = (time = new Date()) => {
             <input
               className="left-column__checkbox"
               type="checkbox"
-              checked={todo.completed ? 'checked' : ''}
+              checked={todo.completed ? "checked" : ""}
               onChange={() => handleTodoComplete(todo)}
             />
             <div>
@@ -56,7 +44,9 @@ const getUserTime = (time = new Date()) => {
             </div>
           </div>
           <div className="right-column">
-            <p className="right-column__date-title">{getUserTime(new Date(todo.date.seconds * 1000))}</p>
+            <p className="right-column__date-title">
+              {getTodoTime(new Date(todo.date.seconds * 1000))}
+            </p>
             <button
               className="right-column__view-button"
               onClick={() => handleTodoClick(todo)}
